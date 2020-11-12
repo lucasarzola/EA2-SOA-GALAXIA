@@ -1,11 +1,12 @@
-package com.example.galaxia.servicios;
+package com.example.galaxia.servicios.apicatedra;
 
+
+import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,12 +14,38 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class RequestPost {
-private String token= "";
-private String tokenValidacion="";
 
 
-private void servidorPost(String uri, JSONObject datosJson) throws JSONException {
+public class ServicioHTTP extends IntentService {
+
+    private String tokenRequest ="";
+    public ServicioHTTP() {
+        super("ServicioHTTP");
+    }
+    String tokenValidacion="";
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.i("SERVIDOR", "Servicio onCreate()");
+    }
+
+    protected void onHandleIntent(Intent intent){
+        try {
+            String uri = intent.getExtras().getString("uri");
+            if(uri.equals("http://so-unlam.net.ar/api/api/event")) {
+                tokenRequest = intent.getExtras().getString( "token" );
+
+            }
+            JSONObject datosJson = new JSONObject(intent.getExtras().getString("datosJson"));
+            servidorPost(uri,datosJson);
+
+        } catch (JSONException e) {
+            Log.e("SERVIDOR","ERROR"+ e.toString());
+        }
+
+    }
+
+    private void servidorPost(String uri, JSONObject datosJson) throws JSONException {
 
         String result  = post (uri,datosJson);
         if (result.equals("NO_OK")){
@@ -34,7 +61,6 @@ private void servidorPost(String uri, JSONObject datosJson) throws JSONException
         Intent i =new Intent("android.intent.action.MAIN");
         if(uri.equals("http://so-unlam.net.ar/api/api/login")) {
             tokenValidacion = datosJson.getString("token");
-
             getSharedPreferences( "tokenDeSesion" ,MODE_PRIVATE).edit().putString("token", tokenValidacion).apply();
         }
         else {
@@ -62,8 +88,8 @@ private void servidorPost(String uri, JSONObject datosJson) throws JSONException
             conexionHttp = (HttpURLConnection) mUrl.openConnection();
             conexionHttp.setRequestProperty("Content-Type","application/json; charset=UTF-8");
             if(uri.equals("http://so-unlam.net.ar/api/api/event")) {
-                conexionHttp.setRequestProperty("Authorization", "Bearer " + token );
-                Log.i( "Token;",token );
+                conexionHttp.setRequestProperty("Authorization", "Bearer " + tokenRequest );
+                Log.i( "Token;", tokenRequest );
             }
 
             conexionHttp.setDoOutput(true);
@@ -75,15 +101,16 @@ private void servidorPost(String uri, JSONObject datosJson) throws JSONException
             Log.i("SERVIDOR", "Se envia al server"+datosJson.toString());
             wr.flush();
             wr.close();
-            conexionHttp.connect();
 
+            conexionHttp.connect();
             int responseCode= conexionHttp.getResponseCode();
-            if((responseCode == conexionHttp.HTTP_OK) || (responseCode == conexionHttp.HTTP_CREATED))
+            if((responseCode == conexionHttp.HTTP_OK) || (responseCode == conexionHttp.HTTP_CREATED)) {
                 result = convertInputStreamToString(new InputStreamReader(conexionHttp.getInputStream()));
 
-            else
+            }
+            else{
                 result = "NO_OK";
-
+            }
 
 
         }catch (Exception e) {
@@ -102,4 +129,5 @@ private void servidorPost(String uri, JSONObject datosJson) throws JSONException
 
         return respondStreamBuild.toString();
     }
+
 }
