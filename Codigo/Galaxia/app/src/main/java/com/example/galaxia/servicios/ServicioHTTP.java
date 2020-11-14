@@ -1,5 +1,4 @@
-package com.example.galaxia.servicios.apicatedra;
-
+package com.example.galaxia.servicios;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -18,10 +17,11 @@ import java.net.URL;
 
 public class ServicioHTTP extends IntentService {
 
-    private String tokenRequest ="";
+    private String token="";
     public ServicioHTTP() {
         super("ServicioHTTP");
     }
+    int marca = 0;
     String tokenValidacion="";
     @Override
     public void onCreate() {
@@ -31,9 +31,9 @@ public class ServicioHTTP extends IntentService {
 
     protected void onHandleIntent(Intent intent){
         try {
-            String uri = intent.getExtras().getString("uri");
+                String uri = intent.getExtras().getString("uri");
             if(uri.equals("http://so-unlam.net.ar/api/api/event")) {
-                tokenRequest = intent.getExtras().getString( "token" );
+                token = intent.getExtras().getString( "token" );
 
             }
             JSONObject datosJson = new JSONObject(intent.getExtras().getString("datosJson"));
@@ -88,8 +88,8 @@ public class ServicioHTTP extends IntentService {
             conexionHttp = (HttpURLConnection) mUrl.openConnection();
             conexionHttp.setRequestProperty("Content-Type","application/json; charset=UTF-8");
             if(uri.equals("http://so-unlam.net.ar/api/api/event")) {
-                conexionHttp.setRequestProperty("Authorization", "Bearer " + tokenRequest );
-                Log.i( "Token;", tokenRequest );
+                conexionHttp.setRequestProperty("Authorization", "Bearer " + token );
+                Log.i( "Token;",token );
             }
 
             conexionHttp.setDoOutput(true);
