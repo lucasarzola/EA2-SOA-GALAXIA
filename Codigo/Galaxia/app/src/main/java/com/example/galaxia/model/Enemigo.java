@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
 import com.example.galaxia.R;
-import static com.example.galaxia.model.PantallaJuego.ENEMY_DESTROYED;
+import static com.example.galaxia.model.PantallaJuego.ENEMIGOS_DESTROZADOS;
 import static com.example.galaxia.model.PantallaJuego.SCORE;
 import java.util.Random;
 
@@ -79,7 +79,7 @@ public class Enemigo {
         public void hit(){
             if (--mHP ==0){
                 SCORE += 50;
-                ENEMY_DESTROYED++;
+                ENEMIGOS_DESTROZADOS++;
                 destroy();
             }
         }

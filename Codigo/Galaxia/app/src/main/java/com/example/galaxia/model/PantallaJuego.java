@@ -28,8 +28,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
     private int mCounter = 0;
     private SharedPreferencesManager mSP;
     public static int SCORE = 0;
-    public static int METEOR_DESTROYED = 0;
-    public static int ENEMY_DESTROYED = 0;
+    public static int ENEMIGOS_DESTROZADOS = 0;
     private volatile boolean finalizaJuego;
     private volatile boolean mPuntajeAlto;
 
@@ -79,7 +78,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
                 e.destroy();
                 finalizaJuego = true;
                 if (SCORE>=mSP.getPuntajeAlto()){
-                    mSP.saveHighScore(SCORE, METEOR_DESTROYED, ENEMY_DESTROYED);
+                    mSP.saveHighScore(SCORE, ENEMIGOS_DESTROZADOS );
                 }
             }
 
@@ -151,7 +150,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
             enemigoDestrozado.setTextSize(50);
             enemigoDestrozado.setTextAlign(Paint.Align.CENTER);
             enemigoDestrozado.setColor(Color.WHITE);
-            mCanvas.drawText("Enemigo Destrozado : " + mSP.getEnemyDestroyed(), mScreenSizeX / 2, (mScreenSizeY / 2) + 120, enemigoDestrozado);
+            mCanvas.drawText("Enemigo Destrozado : " + mSP.getEnemigosDestrozados(), mScreenSizeX / 2, (mScreenSizeY / 2) + 120, enemigoDestrozado);
 
         }
 
@@ -182,7 +181,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
     }
 
     public void pause() {
-        Log.d("GameThread", "Main");
+        Log.d("HiloJuego", "Pausa");
         naveViva = false;
         try {
             mHiloJuego.join();

@@ -3,6 +3,7 @@ package com.example.galaxia.model;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 
 public class GameActivity extends AppCompatActivity implements SensorEventListener {
@@ -19,6 +21,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     private PantallaJuego pantallaJuego;
     private float mXTemp;
+    private Canvas mCanvas;
+    private  Boolean play  = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +39,15 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         pantallaJuego = new PantallaJuego(this, point.x, point.y);
         setContentView( pantallaJuego );
 
-        SensorManager manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+        //sensor acelerometro
+        SensorManager managerAcc = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor acelerometro = managerAcc.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+        managerAcc.registerListener(this, acelerometro, SensorManager.SENSOR_DELAY_GAME);
+        //sensor Proximidad
+        SensorManager managerProx = (SensorManager) getSystemService( Context.SENSOR_SERVICE );
+        Sensor proximidad = managerProx.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        managerProx.registerListener( this ,proximidad,SensorManager.SENSOR_DELAY_GAME);
+
     }
 
     @Override
@@ -51,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         pantallaJuego.pause();
     }
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         mXTemp = event.values[0];
@@ -62,6 +74,26 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
             pantallaJuego.steerRight(event.values[0]);
         }else{
             pantallaJuego.stay();
+        }
+        if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
+            float valProx = Float.valueOf(event.values[0]);
+            Log.i("Valor Sensor Prox",String.valueOf(valProx));
+            if(valProx <= 0){
+                String descripcion = "";
+                if(play) {
+                    play = false;
+                    descripcion = "JUEGO PAUSADO";
+                    onPause();
+                    Toast.makeText( getApplicationContext(),"Juego En Pausa",Toast.LENGTH_SHORT ).show();
+                } else {
+                    play = true;
+                    descripcion = "JUEGO REANUDADO";
+                    onResume();
+                    Toast.makeText( getApplicationContext(),"Juego Reanudado",Toast.LENGTH_SHORT ).show();
+
+                }
+                //agregarEvento(descripcion, "sensor Proximidad");
+            }
         }
     }
 
