@@ -11,7 +11,7 @@ import com.example.galaxia.R;
 
 import java.util.ArrayList;
 
-public class Evento extends AppCompatActivity{
+public class ActivityEventos extends AppCompatActivity{
 
     ListView listEventos;
 
