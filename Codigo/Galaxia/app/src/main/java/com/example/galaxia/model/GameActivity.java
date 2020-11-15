@@ -23,7 +23,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -34,7 +34,6 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         pantallaJuego = new PantallaJuego(this, point.x, point.y);
         setContentView( pantallaJuego );
 
-        //Sensor Accelerometer digunakan untuk menggerakan player ke kanan dan ke kiri
         SensorManager manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
         manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);

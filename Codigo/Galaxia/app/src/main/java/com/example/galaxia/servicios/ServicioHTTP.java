@@ -3,7 +3,6 @@ package com.example.galaxia.servicios;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -13,8 +12,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
-
 public class ServicioHTTP extends IntentService {
 
     private String token="";
@@ -22,6 +19,7 @@ public class ServicioHTTP extends IntentService {
         super("ServicioHTTP");
     }
     int marca = 0;
+    String result = "";
     String tokenValidacion="";
     @Override
     public void onCreate() {
@@ -31,7 +29,7 @@ public class ServicioHTTP extends IntentService {
 
     protected void onHandleIntent(Intent intent){
         try {
-                String uri = intent.getExtras().getString("uri");
+            String uri = intent.getExtras().getString("uri");
             if(uri.equals("http://so-unlam.net.ar/api/api/event")) {
                 token = intent.getExtras().getString( "token" );
 
@@ -47,7 +45,7 @@ public class ServicioHTTP extends IntentService {
 
     private void servidorPost(String uri, JSONObject datosJson) throws JSONException {
 
-        String result  = post (uri,datosJson);
+         result  = post (uri,datosJson);
         if (result.equals("NO_OK")){
             Log.e("SERVIDOR","Se recibio una respuesta NO_OK");
             Log.i("Respuesta:","La respuesta es:"+result);

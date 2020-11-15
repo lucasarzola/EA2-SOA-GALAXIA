@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class PantallaJuego extends SurfaceView implements Runnable {
 
-    private Thread mGameThread;
+    private Thread mHiloJuego;
     private volatile boolean naveViva;
     private NaveEspacial naveEspacial;
     private Paint mPaint;
@@ -31,7 +31,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
     public static int METEOR_DESTROYED = 0;
     public static int ENEMY_DESTROYED = 0;
     private volatile boolean finalizaJuego;
-    private volatile boolean mNewHighScore;
+    private volatile boolean mPuntajeAlto;
 
     public PantallaJuego(Context context, int screenSizeX, int screenSizeY) {
         super(context);
@@ -52,7 +52,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
         mLasers = new ArrayList<>();
         mEnemies = new ArrayList<>();
         finalizaJuego = false;
-        mNewHighScore = false;
+        mPuntajeAlto = false;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
                 control();
             }
         }
-        Log.d("GameThread", "Run stopped");
+        Log.d("Juego", "Terminó el juego");
     }
 
     public void actualizar() {
@@ -78,7 +78,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
             if (Rect.intersects(e.getCollision(), naveEspacial.getCollision())) {
                 e.destroy();
                 finalizaJuego = true;
-                if (SCORE>=mSP.getHighScore()){
+                if (SCORE>=mSP.getPuntajeAlto()){
                     mSP.saveHighScore(SCORE, METEOR_DESTROYED, ENEMY_DESTROYED);
                 }
             }
@@ -90,8 +90,8 @@ public class PantallaJuego extends SurfaceView implements Runnable {
                 }
             }
         }
-        boolean deleting = true;
-        while (deleting) {
+        boolean eliminar = true;
+        while (eliminar) {
             if (mEnemies.size() != 0) {
                 if (mEnemies.get(0).getY() > mScreenSizeY) {
                     mEnemies.remove(0);
@@ -99,7 +99,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
             }
 
             if (mEnemies.size() == 0 || mEnemies.get(0).getY() <= mScreenSizeY) {
-                deleting = false;
+                eliminar = false;
             }
         }
         if (mCounter % 2000 == 0) {
@@ -120,43 +120,39 @@ public class PantallaJuego extends SurfaceView implements Runnable {
             for (Enemigo e : mEnemies) {
                 mCanvas.drawBitmap(e.getBitmap(), e.getX(), e.getY(), mPaint);
             }
-            drawScore();
+            dibujarPuntaje();
             if (finalizaJuego) {
-                drawGameOver();
+                dibujarFinDeJuego();
             }
             mSurfaceHolder.unlockCanvasAndPost(mCanvas);
         }
     }
 
-    void drawScore() {
+    void dibujarPuntaje() {
         Paint score = new Paint();
         score.setTextSize(30);
         score.setColor(Color.WHITE);
         mCanvas.drawText("Score : " + SCORE, 100, 50, score);
     }
 
-    void drawGameOver() {
-        Paint gameOver = new Paint();
-        gameOver.setTextSize(100);
-        gameOver.setTextAlign(Paint.Align.CENTER);
-        gameOver.setColor(Color.WHITE);
-        mCanvas.drawText("GAME OVER", mScreenSizeX / 2, mScreenSizeY / 2, gameOver);
+    void dibujarFinDeJuego() {
+        Paint finJuego = new Paint();
+        finJuego.setTextSize(100);
+        finJuego.setTextAlign(Paint.Align.CENTER);
+        finJuego.setColor(Color.WHITE);
+        mCanvas.drawText("FIN DEL JUEGO", mScreenSizeX / 2, mScreenSizeY / 2, finJuego);
         Paint highScore = new Paint();
         highScore.setTextSize(50);
         highScore.setTextAlign(Paint.Align.CENTER);
         highScore.setColor(Color.WHITE);
-        if (mNewHighScore){
-            mCanvas.drawText("New High Score : " + mSP.getHighScore(), mScreenSizeX / 2, (mScreenSizeY / 2) + 60, highScore);
-            Paint enemyDestroyed = new Paint();
-            enemyDestroyed.setTextSize(50);
-            enemyDestroyed.setTextAlign(Paint.Align.CENTER);
-            enemyDestroyed.setColor(Color.WHITE);
-            mCanvas.drawText("Enemy Destroyed : " + mSP.getEnemyDestroyed(), mScreenSizeX / 2, (mScreenSizeY / 2) + 120, enemyDestroyed);
-            Paint meteorDestroyed = new Paint();
-            meteorDestroyed.setTextSize(50);
-            meteorDestroyed.setTextAlign(Paint.Align.CENTER);
-            meteorDestroyed.setColor(Color.WHITE);
-            mCanvas.drawText("Meteor Destroyed : " + mSP.getMeteorDestroyed(), mScreenSizeX / 2, (mScreenSizeY / 2) + 180, meteorDestroyed);
+        if (mPuntajeAlto){
+            mCanvas.drawText("Nuevo Puntaje Alto: " + mSP.getPuntajeAlto(), mScreenSizeX / 2, (mScreenSizeY / 2) + 60, highScore);
+            Paint enemigoDestrozado = new Paint();
+            enemigoDestrozado.setTextSize(50);
+            enemigoDestrozado.setTextAlign(Paint.Align.CENTER);
+            enemigoDestrozado.setColor(Color.WHITE);
+            mCanvas.drawText("Enemigo Destrozado : " + mSP.getEnemyDestroyed(), mScreenSizeX / 2, (mScreenSizeY / 2) + 120, enemigoDestrozado);
+
         }
 
     }
@@ -178,7 +174,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
             if (mCounter == 10000) {
                 mCounter = 0;
             }
-            mGameThread.sleep(20);
+            mHiloJuego.sleep(20);
             mCounter += 20;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -189,7 +185,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
         Log.d("GameThread", "Main");
         naveViva = false;
         try {
-            mGameThread.join();
+            mHiloJuego.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -197,8 +193,8 @@ public class PantallaJuego extends SurfaceView implements Runnable {
 
     public void resume() {
         naveViva = true;
-        mGameThread = new Thread(this);
-        mGameThread.start();
+        mHiloJuego = new Thread(this);
+        mHiloJuego.start();
     }
 
     @Override
@@ -207,7 +203,7 @@ public class PantallaJuego extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
                 if (finalizaJuego){
                     ((Activity) getContext()).finish();
-                    getContext().startActivity(new Intent(getContext(), HomeActivity.class));
+                    getContext().startActivity(new Intent(getContext(), MainMenuActivity.class));
                 }
                 break;
         }

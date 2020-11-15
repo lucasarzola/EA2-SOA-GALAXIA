@@ -34,7 +34,7 @@ public class NaveEspacial  {
         mContext = context;
 
         mSpeed = 1;
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.nave_jugador);
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.nave);
         mBitmap = Bitmap.createScaledBitmap(mBitmap, mBitmap.getWidth() * 3/5, mBitmap.getHeight() * 3/5, false);
 
         mMaxX = screenSizeX - mBitmap.getWidth();

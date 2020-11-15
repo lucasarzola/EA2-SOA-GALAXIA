@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
     <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
         android:resource="@drawable/icon_noti"/>
@@ -21,10 +24,7 @@
         <activity
             android:name=".model.LoginActivity"
             tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.LOGIN"/>
-                <category android:name="android.intent.category.LAUNCHERLOGIN"/>
-            </intent-filter>
+
 
         </activity>
         <activity
@@ -49,6 +49,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:name="com.example.galaxia.servicios.ServicioHTTP" />
     </application>
 
 </manifest>

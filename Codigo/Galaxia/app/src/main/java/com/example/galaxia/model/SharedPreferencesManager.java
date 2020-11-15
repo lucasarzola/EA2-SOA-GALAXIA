@@ -21,7 +21,7 @@ public class SharedPreferencesManager {
         e.commit();
     }
 
-    public int getHighScore(){
+    public int getPuntajeAlto(){
         SharedPreferences sp = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
         return sp.getInt("high_score", 0);
     }

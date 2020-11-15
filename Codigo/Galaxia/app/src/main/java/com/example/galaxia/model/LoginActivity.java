@@ -15,13 +15,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.galaxia.R;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.example.galaxia.servicios.ServicioHTTP;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class    LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
+
     private Button btnLogin ;
     private EditText txtEmail;
     private EditText txtPassword;
@@ -40,12 +41,11 @@ public class    LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_login);
 
-        //FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( token -> Log.e(TAG,token.getToken()));
-
         btnLogin = (Button) findViewById(R.id.btnLogin);
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPass);
         txtResp = (TextView) findViewById( R.id.textrespuesta );
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
 
@@ -56,7 +56,7 @@ public class    LoginActivity extends AppCompatActivity {
                     try {
                         obj.put("email", txtEmail.getText().toString());
                         obj.put("password", txtPassword.getText().toString());
-                            Intent i = new Intent(LoginActivity.this, ServicioHTTP.class );
+                        Intent i = new Intent(LoginActivity.this, ServicioHTTP.class);
                         i.putExtra("uri", URI_LOGIN);
                         i.putExtra("datosJson", obj.toString());
                         startService(i);
@@ -65,7 +65,6 @@ public class    LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     configurarBroadcastReceiverLogin();
-
                 }
             }
 
@@ -85,7 +84,7 @@ public class    LoginActivity extends AppCompatActivity {
                 JSONObject datosJson = new JSONObject( datosJsonString );
                 if (datosJson.toString() == null) return;
                 if (token != "" && intent.getStringExtra("uri").equals( URI_LOGIN )) {
-                    Intent i = new Intent( LoginActivity.this, GameActivity.class );
+                    Intent i = new Intent( LoginActivity.this, MainMenuActivity.class );
                     i.putExtra( "token", token );
                     startActivity( i );
                     Handler handler = new Handler();
@@ -149,3 +148,7 @@ public class    LoginActivity extends AppCompatActivity {
         return valido;
     }
 }
+
+
+
+
