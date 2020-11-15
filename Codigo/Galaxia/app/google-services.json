@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "244283883479",
+    "firebase_url": "https://apk-galaxia.firebaseio.com",
+    "project_id": "apk-galaxia",
+    "storage_bucket": "apk-galaxia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244283883479:android:dcaffcff41cd132bcf5592",
+        "android_client_info": {
+          "package_name": "com.example.galaxia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244283883479-ljco9t75u0t6jmudj4ldoeuur6ogrpkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLWmEcLaij-JtnBsmmLKYWjSSwOcbxdR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244283883479-ljco9t75u0t6jmudj4ldoeuur6ogrpkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
