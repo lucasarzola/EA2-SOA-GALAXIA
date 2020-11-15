@@ -12,27 +12,21 @@ public class SharedPreferencesManager {
         mContext = context;
     }
 
-    public void saveHighScore(int score, int meteorDestroyed, int enemyDestroyed){
+    public void saveHighScore(int score, int enemyDestroyed){
         SharedPreferences sp = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
         SharedPreferences.Editor e = sp.edit();
-        e.putInt("high_score", score);
-        e.putInt("meteor", meteorDestroyed);
-        e.putInt("enemy", enemyDestroyed);
+        e.putInt("puntaje", score);
+        e.putInt("enemigos", enemyDestroyed);
         e.commit();
     }
 
     public int getPuntajeAlto(){
         SharedPreferences sp = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
-        return sp.getInt("high_score", 0);
+        return sp.getInt("puntaje", 0);
     }
 
-    public int getMeteorDestroyed(){
+    public int getEnemigosDestrozados(){
         SharedPreferences sp = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
-        return sp.getInt("meteor", 0);
-    }
-
-    public int getEnemyDestroyed(){
-        SharedPreferences sp = mContext.getSharedPreferences(mName, Context.MODE_PRIVATE);
-        return sp.getInt("enemy", 0);
+        return sp.getInt("enemigos", 0);
     }
 }
