@@ -16,14 +16,11 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_menu);
-
-        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.main_menu );
 
         mJugar = findViewById( R.id.play);
-        mPuntaje = findViewById(R.id.high_score);
+        mPuntaje = findViewById(R.id.puntaje );
         mSalir = findViewById(R.id.exit);
 
         mJugar.setOnClickListener(this);
@@ -38,7 +35,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, GameActivity.class));
                 finish();
                 break;
-            case R.id.high_score:
+            case R.id.puntaje:
                 startActivity(new Intent(this, Score.class));
                 break;
             case R.id.exit:
