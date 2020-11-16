@@ -24,29 +24,34 @@
 
         </activity>
         <activity
-            android:name=".model.LoginActivity">
-
+            android:name=".LoginActivity"
+            tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".model.ActivityEventos"
+            android:name=".NotificationActivity"
             tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
-            android:name=".model.MainMenuActivity"
+            android:name=".EventosActivity"
             tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
-            android:name=".model.RegistroActivity"
+            android:name=".MainMenuActivity"
+            tools:ignore="LockedOrientationActivity">
+
+        </activity>
+        <activity
+            android:name=".RegistroActivity"
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".model.GameActivity"
+            android:name=".GameActivity"
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".model.HomeActivity"
+            android:name=".HomeActivity"
             tools:ignore="LockedOrientationActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN"/>

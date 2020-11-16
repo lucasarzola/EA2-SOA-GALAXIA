@@ -1,8 +1,10 @@
-package com.example.galaxia.model;
+package com.example.galaxia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.hardware.Sensor;
@@ -15,14 +17,19 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.galaxia.model.PantallaJuego;
+import com.example.galaxia.servicios.ServicioHTTP;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class GameActivity extends AppCompatActivity implements SensorEventListener {
-
 
     private PantallaJuego pantallaJuego;
     private float mXTemp;
     private Canvas mCanvas;
-    private  Boolean play  = true;
+    private Boolean play = true;
 
 
     @Override
@@ -55,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         pantallaJuego.resume();
     }
+
 
     @Override
     protected void onPause() {
@@ -99,6 +107,45 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    public void informarEvento(String tipoEvento, String descripcion){
+
+        Bundle extras = getIntent().getExtras();
+        String token =getSharedPreferences( "tokenDeSesion" ,MODE_PRIVATE).toString();
+
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("env", "PROD");
+            obj.put("type_events", tipoEvento);
+            obj.put("description", descripcion);
+            Intent i = new Intent(GameActivity.this, ServicioHTTP.class);
+            i.putExtra("uri", "http://so-unlam.net.ar/api/api/event");
+            i.putExtra("token", token);
+            i.putExtra("datosJson", obj.toString());
+
+            startService(i);
+            guardarEnPreferences(obj.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void guardarEnPreferences(String datosEvento){
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("HistorialEventosPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        int cantEventos=pref.getInt("cantEventos", 0);
+        cantEventos++;
+
+        String datos="IdEvento "+String.valueOf(cantEventos) + datosEvento;
+        editor.putInt("cantEventos", cantEventos);
+        editor.putString("key"+String.valueOf(cantEventos), datos);
+        editor.commit();
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.galaxia.model;
+package com.example.galaxia;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,9 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.galaxia.R;
 import com.example.galaxia.servicios.ServicioHTTP;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;

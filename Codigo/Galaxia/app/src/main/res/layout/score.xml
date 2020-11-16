@@ -20,20 +20,21 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginTop="80dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="32dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
         <TextView
-            android:text="HIGH SCORE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
             android:fontFamily="@font/iceberg_regular"
-            android:textSize="32dp"/>
+            android:text="PUNTAJE ALTO"
+            android:textColor="@android:color/white"
+            android:textSize="32dp" />
 
         <TextView
             android:id="@+id/null_high_score"
@@ -42,60 +43,93 @@
             android:layout_marginTop="16dp"
             android:text="Puntaje"
             android:textColor="@android:color/white" />
+
         <LinearLayout
             android:id="@+id/high_score_container"
-            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="16dp"
             android:background="@android:color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
             android:paddingLeft="48dp"
-            android:paddingRight="48dp"
             android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:gravity="center_horizontal">
+            android:paddingRight="48dp"
+            android:paddingBottom="16dp">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
                 <TextView
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="SCORE: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
+
                 <TextView
-                    android:textStyle="bold"
                     android:id="@+id/score"
-                    android:text="100"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="100"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp"/>
+                android:orientation="horizontal" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <ImageView
-                    android:src="@drawable/enemigo1"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
                     android:adjustViewBounds="true"
-                    android:layout_marginRight="8dp"/>
+                    android:src="@drawable/enemigo1" />
+
                 <TextView
-                    android:textStyle="bold"
                     android:id="@+id/enemy"
-                    android:text="x100"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="x100"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutEvento"
+        android:layout_width="match_parent"
+        android:layout_height="248dp"
+        android:layout_below="@id/back"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnEvento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_weight="1"
+            android:text="Eventos" />
     </LinearLayout>
 
 </RelativeLayout>

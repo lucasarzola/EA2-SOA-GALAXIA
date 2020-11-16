@@ -1,4 +1,4 @@
-package com.example.galaxia.model;
+package com.example.galaxia;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,8 +18,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.galaxia.LoginActivity;
-import com.example.galaxia.R;
 import com.example.galaxia.servicios.ServicioHTTP;
 
 import org.json.JSONException;

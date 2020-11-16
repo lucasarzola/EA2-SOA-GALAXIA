@@ -1,4 +1,4 @@
-package com.example.galaxia.model;
+package com.example.galaxia;
 
 import android.os.Bundle;
 import android.widget.TextView;

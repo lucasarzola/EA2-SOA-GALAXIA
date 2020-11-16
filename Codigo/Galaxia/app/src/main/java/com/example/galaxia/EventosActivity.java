@@ -1,4 +1,4 @@
-package com.example.galaxia.model;
+package com.example.galaxia;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
@@ -11,7 +11,7 @@ import com.example.galaxia.R;
 
 import java.util.ArrayList;
 
-public class ActivityEventos extends AppCompatActivity{
+public class EventosActivity extends AppCompatActivity{
 
     ListView listEventos;
 

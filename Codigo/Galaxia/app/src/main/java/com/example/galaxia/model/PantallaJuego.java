@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.example.galaxia.MainMenuActivity;
+
 import java.util.ArrayList;
 
 public class PantallaJuego extends SurfaceView implements Runnable {
