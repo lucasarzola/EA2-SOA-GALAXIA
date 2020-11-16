@@ -5,8 +5,8 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.galaxia.model.EventoActivity"
-    android:background="@drawable/back_events"
+    tools:context="com.example.galaxia.EventosActivity"
+    android:background="@color/black"
     >
 
     <LinearLayout
@@ -18,11 +18,11 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dip"
-            android:textColor="#bf360c"
-            android:text="EVENTOS" />
+            android:text="EVENTOS"
+            android:textColor="#FFFFFF"
+            android:textSize="30dip" />
 
         <Button
             android:id="@+id/btnEventos"
@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="#bf360c"
+            android:baselineAligned="false"
             android:onClick="borrarHistorial"
             android:text="BORRAR HISTORIAL"
             android:textColor="#ffff" />

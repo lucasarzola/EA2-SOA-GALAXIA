@@ -8,9 +8,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.galaxia.GameActivity;
-import com.example.galaxia.R;
-import com.example.galaxia.model.Score;
 import com.example.galaxia.servicios.ServicioHTTP;
 
 import org.json.JSONException;
@@ -20,11 +17,14 @@ import org.json.JSONObject;
 public class MainMenuActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mJugar, mPuntaje, mSalir;
+    private String token ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.main_menu );
+        informarEvento( "Login exitoso", "Se ha logueado correctamente." );
+
 
         mJugar = findViewById( R.id.play);
         mPuntaje = findViewById(R.id.puntaje );
@@ -35,12 +35,7 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
         mSalir.setOnClickListener(this);
     }
     public void informarEvento(String tipoEvento, String descripcion){
-
-        Bundle extras = getIntent().getExtras();
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("tokenDeSesion", MODE_PRIVATE);
-        JSONObject tokenJson = new JSONObject();
-
-        String token ="";
+        token = getSharedPreferences( "tokenDeSesion" ,MODE_PRIVATE).getString("token","").toString();
         JSONObject obj = new JSONObject();
         try {
             obj.put("env", "PROD");
@@ -76,17 +71,24 @@ public class MainMenuActivity extends AppCompatActivity implements View.OnClickL
     }
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.play:
                 informarEvento( "sensorAcelerometro", "Se activo el sensor acelerometro" );
                 informarEvento( "sensorProximidad", "Se activo el sensor de proximidad" );
-                startActivity(new Intent(this, GameActivity.class));
+                Intent juego = new Intent( MainMenuActivity.this, GameActivity.class );
+                juego.putExtra( "token", token );
+                startActivity( juego );
                 finish();
                 break;
             case R.id.puntaje:
-                startActivity(new Intent(this, Score.class));
+                Intent puntaje = new Intent( MainMenuActivity.this, ScoreActivity.class );
+                puntaje.putExtra( "token", token );
+                informarEvento( "Cambio de Activity", "Se abrio pantalla de Puntaje" );
+                startActivity(puntaje);
+
                 break;
             case R.id.exit:
+                informarEvento( "Cotexto", "ha salido del juego." );
                 finish();
                 break;
         }

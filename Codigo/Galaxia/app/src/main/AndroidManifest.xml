@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Galaxia">
         <activity
-            android:name=".model.Score"
+            android:name=".ScoreActivity"
             tools:ignore="LockedOrientationActivity">
 
         </activity>

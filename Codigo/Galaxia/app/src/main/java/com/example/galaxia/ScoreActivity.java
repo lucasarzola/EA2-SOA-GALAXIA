@@ -1,4 +1,4 @@
-package com.example.galaxia.model;
+package com.example.galaxia;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,16 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.galaxia.EventosActivity;
-import com.example.galaxia.GameActivity;
-import com.example.galaxia.R;
+import com.example.galaxia.model.SharedPreferencesManager;
 import com.example.galaxia.servicios.ServicioHTTP;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class Score  extends AppCompatActivity implements View.OnClickListener {
+public class ScoreActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mBack;
     private TextView mScore, mEnemigo, mPuntaje;
@@ -44,7 +42,7 @@ public class Score  extends AppCompatActivity implements View.OnClickListener {
         btnEvento.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Score.this, EventosActivity.class);
+                Intent i = new Intent( ScoreActivity.this, EventosActivity.class);
                 informarEvento( "Cambio de Activity", "Se abrio pantalla de Eventos" );
                 startActivity(i);
 
@@ -85,7 +83,7 @@ public class Score  extends AppCompatActivity implements View.OnClickListener {
             obj.put("env", "PROD");
             obj.put("type_events", tipoEvento);
             obj.put("description", descripcion);
-            Intent i = new Intent( Score.this, ServicioHTTP.class);
+            Intent i = new Intent( ScoreActivity.this, ServicioHTTP.class);
             i.putExtra("uri", "http://so-unlam.net.ar/api/api/event");
             i.putExtra("token", token);
             i.putExtra("datosJson", obj.toString());

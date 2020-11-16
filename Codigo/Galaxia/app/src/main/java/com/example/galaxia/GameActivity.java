@@ -100,7 +100,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                     Toast.makeText( getApplicationContext(),"Juego Reanudado",Toast.LENGTH_SHORT ).show();
 
                 }
-                //agregarEvento(descripcion, "sensor Proximidad");
+                informarEvento("Estado de juego", descripcion);
             }
         }
     }
@@ -112,8 +112,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 
     public void informarEvento(String tipoEvento, String descripcion){
 
-        Bundle extras = getIntent().getExtras();
-        String token =getSharedPreferences( "tokenDeSesion" ,MODE_PRIVATE).toString();
+        String token = getSharedPreferences( "tokenDeSesion" ,MODE_PRIVATE).getString("token","").toString();
 
         JSONObject obj = new JSONObject();
         try {

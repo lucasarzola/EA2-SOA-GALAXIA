@@ -35,7 +35,7 @@ public class MensajeriaService extends FirebaseMessagingService {
             manager.createNotificationChannel( notificationChannel );
         }
 
-        Intent notificationIntent = new Intent(this, NotificationActivity.class);
+        Intent notificationIntent = new Intent(MensajeriaService.this, NotificationActivity.class);
         notificationIntent.putExtra( "title",remoteMessage.getNotification().getTitle() );
         notificationIntent.putExtra( "body",remoteMessage.getNotification().getBody() );
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );

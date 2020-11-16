@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".model.Score">
+    tools:context=".ScoreActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -46,10 +46,9 @@
 
         <LinearLayout
             android:id="@+id/high_score_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="209dp"
+            android:layout_height="125dp"
             android:layout_marginTop="16dp"
-            android:background="@android:color/white"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingLeft="48dp"
@@ -72,7 +71,7 @@
                 <TextView
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="100"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -85,7 +84,7 @@
                 android:orientation="horizontal" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">

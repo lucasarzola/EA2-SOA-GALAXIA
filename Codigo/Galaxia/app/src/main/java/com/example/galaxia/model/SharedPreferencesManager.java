@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesManager {
 
-    private String mName = "SpaceShooter";
+    private String mName = "Galaxia";
     private Context mContext;
 
     public SharedPreferencesManager(Context context) {
