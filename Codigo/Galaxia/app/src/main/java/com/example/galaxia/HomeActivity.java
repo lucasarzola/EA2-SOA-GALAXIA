@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.galaxia.LoginActivity;
 import com.example.galaxia.R;
 import com.google.firebase.iid.FirebaseInstanceId;
 
